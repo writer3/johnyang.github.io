@@ -7,9 +7,10 @@ output:
     theme: cosmo
 ---
 
-# Publications
+# Select Publications
+
 
 This website was made as an example in [P8105](https://p8105.com/) for "Making Websites". I'm making in RMD and will use GitHub for hosting. 
 
 
-You can go [home](index.html).
+See the full list of publications [here](https://scholar.google.com/citations?user=jXa9fYQAAAAJ&hl=en).
