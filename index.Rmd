@@ -1,0 +1,35 @@
+---
+title: "John Yang"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cosmo
+---
+
+# Welcome to John Yang's website
+
+
+This website describes who I am, my research interests, and publications. 
+
+
+
+Sometimes I use [google](https://www.google.com/) to do data science when I'm stuck
+
+
+
+This is my dog Millie. She is a good dog.
+
+![](images/millie.jpg)
+
+*This is an html code to resize photos*
+
+<img src="images/millie.jpg" style="width:75%"> 
+
+
+
+
+*Embed links to get from one page to another*
+
+If you'd like to learn more about this website, visit [this page](about.html)
+
