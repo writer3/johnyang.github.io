@@ -7,9 +7,10 @@ output:
     theme: cosmo
 ---
 
-# Research Interests
+The goal of my research is to predict and improve _Helicobacter pylori_-associated outcomes as well as screening and prevention for gastrointestinal cancers, particularly in the esophagus, stomach, pancreas, and liver. These cancers have dismal case-fatality rates. By leveraging electronic health record data and genomic data, I identify populations at risk to improve detection of cancer and clinical care. Through modeling screening and prevention strategies, I develop clinical management decision aids. 
 
-This website was made as an example in [P8105](https://p8105.com/) for "Making Websites". I'm making in RMD and will use GitHub for hosting. 
+# Selected Research Projects
 
+1. *Predicting and improving _Helicobacter pylori_-associated Outcomes*
 
-You can go [home](index.html).
+2. *Cost-effectiveness modeling gastric cancer screening strategies*
