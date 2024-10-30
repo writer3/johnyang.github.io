@@ -1,0 +1,86 @@
+---
+title: "Dashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+```{r setup, include=FALSE}
+library(flexdashboard)
+
+library(tidyverse)
+library(p8105.datasets)
+
+library(plotly)
+
+#remember to run this in R Console to have the output as a dashboard and not just an html --> rmarkdown::render("dashboard.Rmd", output_format = "flexdashboard::flex_dashboard")
+```
+
+```{r}
+data("instacart")
+
+aisle_df = 
+  instacart |> 
+  as_tibble() |> 
+  select(-eval_set) |> 
+  count(aisle) |> 
+  mutate(aisle = fct_reorder(aisle, n))
+
+time_df = 
+  instacart |>
+   mutate(
+    day_of_week = case_when(
+      order_dow == 0 ~ "Sunday",
+      order_dow == 1 ~ "Monday",
+      order_dow == 2 ~ "Tuesday",
+      order_dow == 3 ~ "Wednesday",
+      order_dow == 4 ~ "Thursday",
+      order_dow == 5 ~ "Friday",
+      order_dow == 6 ~ "Saturday"
+    )   
+  ) |> 
+  factor(day_of_week,
+         levels = c("Monday", "Tuesday", "Wednesday", 
+                    "Thursday", "Friday", "Saturday",
+                    "Sunday"), ordered = TRUE) |> 
+  group_by(department, day_of_week) |> 
+  summarize(mean_hod = mean(order_hour_of_day)) |> 
+  pivot_wider(
+    names_from = day_of_week, 
+    values_from = mean_hod) 
+
+```
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Chart A
+
+```{r}
+time_df |> 
+  plot_ly(
+    x = ~day_of_week, y = ~mean_hod,
+    type = "scatter", mode = "markers", alpha = 0.5
+  )
+```
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Chart B
+
+```{r}
+aisle_df |> 
+  plot_ly(
+    x = ~aisle, y = ~n, color = ,
+    type = "bar"
+  )
+```
+
+### Chart C
+
+```{r}
+
+
+```
+
