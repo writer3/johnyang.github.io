@@ -36,18 +36,12 @@ time_df =
       order_dow == 3 ~ "Wednesday",
       order_dow == 4 ~ "Thursday",
       order_dow == 5 ~ "Friday",
-      order_dow == 6 ~ "Saturday"
-    )   
-  ) |> 
-  factor(day_of_week,
-         levels = c("Monday", "Tuesday", "Wednesday", 
-                    "Thursday", "Friday", "Saturday",
-                    "Sunday"), ordered = TRUE) |> 
-  group_by(department, day_of_week) |> 
-  summarize(mean_hod = mean(order_hour_of_day)) |> 
-  pivot_wider(
-    names_from = day_of_week, 
-    values_from = mean_hod) 
+      order_dow == 6 ~ "Saturday"),
+    day_of_week = factor(day_of_week,
+      levels = c("Monday", "Tuesday", "Wednesday", 
+                  "Thursday", "Friday", "Saturday",
+                  "Sunday"), ordered = TRUE) 
+   )
 
 ```
 
@@ -58,10 +52,12 @@ Column {data-width=650}
 
 ```{r}
 time_df |> 
+  group_by(department, day_of_week) |> 
+  summarize(mean_hour_of_day = mean(order_hour_of_day)) |> 
   plot_ly(
-    x = ~day_of_week, y = ~mean_hod,
-    type = "scatter", mode = "markers", alpha = 0.5
-  )
+    x = ~day_of_week, y = ~mean_hour_of_day, color = ~department,
+    type = "scatter", mode = "lines", alpha = 0.5)
+
 ```
 
 Column {data-width=350}

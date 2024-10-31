@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Dashboard</title>
+
+<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="site_libs/plotly-binding-4.10.4/plotly.js"></script>
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<link href="site_libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="site_libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Home</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="research.html">Research</a>
+</li>
+<li>
+  <a href="publications.html">Publications</a>
+</li>
+<li>
+  <a href="dashboard.html">Dashboard</a>
+</li>
+<li>
+  <a href="mailto:&lt;jy3306@columbia.edu&gt;">
+    <span class="fa fa-envelope fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="http://github.com/writer3">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Dashboard</h1>
+
+</div>
+
+
+<pre class="r"><code>data(&quot;instacart&quot;)
+
+aisle_df = 
+  instacart |&gt; 
+  as_tibble() |&gt; 
+  select(-eval_set) |&gt; 
+  count(aisle) |&gt; 
+  mutate(aisle = fct_reorder(aisle, n))
+
+time_df = 
+  instacart |&gt;
+   mutate(
+    day_of_week = case_when(
+      order_dow == 0 ~ &quot;Sunday&quot;,
+      order_dow == 1 ~ &quot;Monday&quot;,
+      order_dow == 2 ~ &quot;Tuesday&quot;,
+      order_dow == 3 ~ &quot;Wednesday&quot;,
+      order_dow == 4 ~ &quot;Thursday&quot;,
+      order_dow == 5 ~ &quot;Friday&quot;,
+      order_dow == 6 ~ &quot;Saturday&quot;),
+    day_of_week = factor(day_of_week,
+      levels = c(&quot;Monday&quot;, &quot;Tuesday&quot;, &quot;Wednesday&quot;, 
+                  &quot;Thursday&quot;, &quot;Friday&quot;, &quot;Saturday&quot;,
+                  &quot;Sunday&quot;), ordered = TRUE) 
+   )</code></pre>
+<div id="column" class="section level2" data-width="650">
+<h2>Column</h2>
+<div id="chart-a" class="section level3">
+<h3>Chart A</h3>
+<pre class="r"><code>time_df |&gt; 
+  group_by(department, day_of_week) |&gt; 
+  summarize(mean_hour_of_day = mean(order_hour_of_day)) |&gt; 
+  plot_ly(
+    x = ~day_of_week, y = ~mean_hour_of_day, color = ~department,
+    type = &quot;scatter&quot;, mode = &quot;lines&quot;, alpha = 0.5)</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;department&#39;. You can override using the
+## `.groups` argument.</code></pre>
+<pre><code>## Warning in RColorBrewer::brewer.pal(N, &quot;Set2&quot;): n too large, allowed maximum for palette Set2 is 8
+## Returning the palette you asked for with that many colors
+## Warning in RColorBrewer::brewer.pal(N, &quot;Set2&quot;): n too large, allowed maximum for palette Set2 is 8
+## Returning the palette you asked for with that many colors</code></pre>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-32b62b9be4569742db4e" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-32b62b9be4569742db4e">{"x":{"visdat":{"65602c85285f":["function () ","plotlyVisDat"]},"cur_data":"65602c85285f","attrs":{"65602c85285f":{"x":{},"y":{},"mode":"lines","color":{},"alpha":0.5,"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"day_of_week","type":"category","categoryorder":"array","categoryarray":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]},"yaxis":{"domain":[0,1],"automargin":true,"title":"mean_hour_of_day"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"y":[14.317073170731707,13.636632200886263,13.53357314148681,13.524008350730689,13.72007722007722,13.656209150326797,13.97194950911641],"mode":"lines","type":"scatter","name":"alcohol","marker":{"color":"rgba(102,194,165,0.5)","line":{"color":"rgba(102,194,165,1)"}},"textfont":{"color":"rgba(102,194,165,0.5)"},"error_y":{"color":"rgba(102,194,165,0.5)"},"error_x":{"color":"rgba(102,194,165,0.5)"},"line":{"color":"rgba(102,194,165,0.5)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"y":[13.386550777676121,13.257111597374179,13.919954904171364,13.227138643067846,13.085889570552148,13.47718253968254,13.859724612736661],"mode":"lines","type":"scatter","name":"babies","marker":{"color":"rgba(172,179,141,0.5)","line":{"color":"rgba(172,179,141,1)"}},"textfont":{"color":"rgba(172,179,141,0.5)"},"error_y":{"color":"rgba(172,179,141,0.5)"},"error_x":{"color":"rgba(172,179,141,0.5)"},"line":{"color":"rgba(172,179,141,0.5)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"y":[13.459938150126511,13.629106322854115,13.64702581369248,13.658696842489505,13.40344773050767,13.582469238213742,13.503426181365134],"mode":"lines","type":"scatter","name":"bakery","marker":{"color":"rgba(219,161,118,0.5)","line":{"color":"rgba(219,161,118,1)"}},"textfont":{"color":"rgba(219,161,118,0.5)"},"error_y":{"color":"rgba(219,161,118,0.5)"},"error_x":{"color":"rgba(219,161,118,0.5)"},"line":{"color":"rgba(219,161,118,0.5)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"y":[13.272488317757009,13.596898670858939,13.414003590664272,13.470954063604241,13.29223916180438,13.689123922479672,13.607153938211958],"mode":"lines","type":"scatter","name":"beverages","marker":{"color":"rgba(248,142,103,0.5)","line":{"color":"rgba(248,142,103,1)"}},"textfont":{"color":"rgba(248,142,103,0.5)"},"error_y":{"color":"rgba(248,142,103,0.5)"},"error_x":{"color":"rgba(248,142,103,0.5)"},"line":{"color":"rgba(248,142,103,0.5)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"y":[13.31933869915162,13.634862898712926,13.59982306104394,13.52983293556086,13.263841954769951,13.708009708737864,13.634839099561868],"mode":"lines","type":"scatter","name":"breakfast","marker":{"color":"rgba(217,150,141,0.5)","line":{"color":"rgba(217,150,141,1)"}},"textfont":{"color":"rgba(217,150,141,0.5)"},"error_y":{"color":"rgba(217,150,141,0.5)"},"error_x":{"color":"rgba(217,150,141,0.5)"},"line":{"color":"rgba(217,150,141,0.5)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"y":[13.133689839572192,14.118343195266272,14.141975308641975,13.024844720496894,13.88950276243094,13.291666666666666,13.781758957654723],"mode":"lines","type":"scatter","name":"bulk","marker":{"color":"rgba(178,156,177,0.5)","line":{"color":"rgba(178,156,177,1)"}},"textfont":{"color":"rgba(178,156,177,0.5)"},"error_y":{"color":"rgba(178,156,177,0.5)"},"error_x":{"color":"rgba(178,156,177,0.5)"},"line":{"color":"rgba(178,156,177,0.5)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"y":[13.544547398431932,13.735104224312858,13.658936425429829,13.626296887470073,13.372777877536363,13.712380685008423,13.44140356897735],"mode":"lines","type":"scatter","name":"canned goods","marker":{"color":"rgba(152,158,202,0.5)","line":{"color":"rgba(152,158,202,1)"}},"textfont":{"color":"rgba(152,158,202,0.5)"},"error_y":{"color":"rgba(152,158,202,0.5)"},"error_x":{"color":"rgba(152,158,202,0.5)"},"line":{"color":"rgba(152,158,202,0.5)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"y":[13.361479198767334,13.649006091696057,13.618548554793096,13.632877937708384,13.361471090857306,13.705372132064912,13.586078493183072],"mode":"lines","type":"scatter","name":"dairy eggs","marker":{"color":"rgba(185,152,199,0.5)","line":{"color":"rgba(185,152,199,1)"}},"textfont":{"color":"rgba(185,152,199,0.5)"},"error_y":{"color":"rgba(185,152,199,0.5)"},"error_x":{"color":"rgba(185,152,199,0.5)"},"line":{"color":"rgba(185,152,199,0.5)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"y":[13.518151334013705,13.724104361370717,13.744469712631796,13.704349653288507,13.371377777777777,13.715078630897317,13.602134290301256],"mode":"lines","type":"scatter","name":"deli","marker":{"color":"rgba(215,144,197,0.5)","line":{"color":"rgba(215,144,197,1)"}},"textfont":{"color":"rgba(215,144,197,0.5)"},"error_y":{"color":"rgba(215,144,197,0.5)"},"error_x":{"color":"rgba(215,144,197,0.5)"},"line":{"color":"rgba(215,144,197,0.5)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"y":[13.586011342155009,13.886363636363637,13.739235607160136,13.755880940950552,13.510693454309786,13.813965170797053,13.589058390320885],"mode":"lines","type":"scatter","name":"dry goods pasta","marker":{"color":"rgba(224,152,180,0.5)","line":{"color":"rgba(224,152,180,1)"}},"textfont":{"color":"rgba(224,152,180,0.5)"},"error_y":{"color":"rgba(224,152,180,0.5)"},"error_x":{"color":"rgba(224,152,180,0.5)"},"line":{"color":"rgba(224,152,180,0.5)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"y":[13.752534921647877,13.999400171379605,13.972097920505396,13.897019453864001,13.625410733844468,13.806282722513089,13.728780445447835],"mode":"lines","type":"scatter","name":"frozen","marker":{"color":"rgba(205,180,144,0.5)","line":{"color":"rgba(205,180,144,1)"}},"textfont":{"color":"rgba(205,180,144,0.5)"},"error_y":{"color":"rgba(205,180,144,0.5)"},"error_x":{"color":"rgba(205,180,144,0.5)"},"line":{"color":"rgba(205,180,144,0.5)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"y":[13.337468005512896,13.622247446083996,13.414628518689433,13.551940767332287,13.147708674304418,13.562383612662943,13.491211592647256],"mode":"lines","type":"scatter","name":"household","marker":{"color":"rgba(180,206,104,0.5)","line":{"color":"rgba(180,206,104,1)"}},"textfont":{"color":"rgba(180,206,104,0.5)"},"error_y":{"color":"rgba(180,206,104,0.5)"},"error_x":{"color":"rgba(180,206,104,0.5)"},"line":{"color":"rgba(180,206,104,0.5)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"y":[13.511085844229676,13.7796992481203,13.77123695976155,13.588800000000001,13.664045746962115,13.812260536398467,13.71652754590985],"mode":"lines","type":"scatter","name":"international","marker":{"color":"rgba(186,217,78,0.5)","line":{"color":"rgba(186,217,78,1)"}},"textfont":{"color":"rgba(186,217,78,0.5)"},"error_y":{"color":"rgba(186,217,78,0.5)"},"error_x":{"color":"rgba(186,217,78,0.5)"},"line":{"color":"rgba(186,217,78,0.5)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"y":[13.604912764003673,13.773987206823028,13.739409499358151,13.8608586649953,13.627705627705629,13.564492902694919,13.407867760123013],"mode":"lines","type":"scatter","name":"meat seafood","marker":{"color":"rgba(217,217,66,0.5)","line":{"color":"rgba(217,217,66,1)"}},"textfont":{"color":"rgba(217,217,66,0.5)"},"error_y":{"color":"rgba(217,217,66,0.5)"},"error_x":{"color":"rgba(217,217,66,0.5)"},"line":{"color":"rgba(217,217,66,0.5)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"y":[13.457706766917294,13.846327683615819,13.792616720955483,13.540229885057471,13.469462169553328,13.995626822157435,13.623898139079333],"mode":"lines","type":"scatter","name":"missing","marker":{"color":"rgba(247,217,52,0.5)","line":{"color":"rgba(247,217,52,1)"}},"textfont":{"color":"rgba(247,217,52,0.5)"},"error_y":{"color":"rgba(247,217,52,0.5)"},"error_x":{"color":"rgba(247,217,52,0.5)"},"line":{"color":"rgba(247,217,52,0.5)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"y":[13.5,14.108910891089108,13.642857142857142,14.17910447761194,13.550000000000001,14.003508771929825,13.884718498659517],"mode":"lines","type":"scatter","name":"other","marker":{"color":"rgba(250,212,80,0.5)","line":{"color":"rgba(250,212,80,1)"}},"textfont":{"color":"rgba(250,212,80,0.5)"},"error_y":{"color":"rgba(250,212,80,0.5)"},"error_x":{"color":"rgba(250,212,80,0.5)"},"line":{"color":"rgba(250,212,80,0.5)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"y":[13.530745179781135,13.842817264333261,13.845425867507887,13.697017934840284,13.383835539284709,13.615800611333176,13.451158490155553],"mode":"lines","type":"scatter","name":"pantry","marker":{"color":"rgba(241,204,114,0.5)","line":{"color":"rgba(241,204,114,1)"}},"textfont":{"color":"rgba(241,204,114,0.5)"},"error_y":{"color":"rgba(241,204,114,0.5)"},"error_x":{"color":"rgba(241,204,114,0.5)"},"line":{"color":"rgba(241,204,114,0.5)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"y":[13.619376026272578,13.740045941807045,13.383411580594679,13.615416154161542,13.500538599640933,13.765371229698376,13.592956243329775],"mode":"lines","type":"scatter","name":"personal care","marker":{"color":"rgba(231,197,144,0.5)","line":{"color":"rgba(231,197,144,1)"}},"textfont":{"color":"rgba(231,197,144,0.5)"},"error_y":{"color":"rgba(231,197,144,0.5)"},"error_x":{"color":"rgba(231,197,144,0.5)"},"line":{"color":"rgba(231,197,144,0.5)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"y":[13.387755102040817,14.226579520697168,13.870229007633588,13.825742574257426,13.294910179640718,13.616421568627452,13.477477477477477],"mode":"lines","type":"scatter","name":"pets","marker":{"color":"rgba(215,191,158,0.5)","line":{"color":"rgba(215,191,158,1)"}},"textfont":{"color":"rgba(215,191,158,0.5)"},"error_y":{"color":"rgba(215,191,158,0.5)"},"error_x":{"color":"rgba(215,191,158,0.5)"},"line":{"color":"rgba(215,191,158,0.5)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"y":[13.30942993795243,13.707162798813471,13.616234085953437,13.723685726797115,13.36245869933113,13.709660659197922,13.557448239419704],"mode":"lines","type":"scatter","name":"produce","marker":{"color":"rgba(198,185,168,0.5)","line":{"color":"rgba(198,185,168,1)"}},"textfont":{"color":"rgba(198,185,168,0.5)"},"error_y":{"color":"rgba(198,185,168,0.5)"},"error_x":{"color":"rgba(198,185,168,0.5)"},"line":{"color":"rgba(198,185,168,0.5)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"y":[13.198525798525798,13.575104074251007,13.506310116651886,13.613399887514062,13.368424368424368,13.769112680380719,13.714279966201264],"mode":"lines","type":"scatter","name":"snacks","marker":{"color":"rgba(179,179,179,0.5)","line":{"color":"rgba(179,179,179,1)"}},"textfont":{"color":"rgba(179,179,179,0.5)"},"error_y":{"color":"rgba(179,179,179,0.5)"},"error_x":{"color":"rgba(179,179,179,0.5)"},"line":{"color":"rgba(179,179,179,0.5)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div id="column-1" class="section level2" data-width="350">
+<h2>Column</h2>
+<div id="chart-b" class="section level3">
+<h3>Chart B</h3>
+<pre class="r"><code>aisle_df |&gt; 
+  plot_ly(
+    x = ~aisle, y = ~n, color = ,
+    type = &quot;bar&quot;
+  )</code></pre>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-be8d7e9520bf890f262a" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-be8d7e9520bf890f262a">{"x":{"visdat":{"6560623c6dfa":["function () ","plotlyVisDat"]},"cur_data":"6560623c6dfa","attrs":{"6560623c6dfa":{"x":{},"y":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"aisle","type":"category","categoryorder":"array","categoryarray":["beauty","frozen juice","baby accessories","baby bath body care","kitchen supplies","specialty wines champagnes","ice cream toppings","shave needs","skin care","first aid","eye ear care","kosher foods","bulk grains rice dried goods","indian foods","bulk dried fruits vegetables","facial care","deodorants","more household","muscles joints pain relief","packaged seafood","frozen dessert","mint gum","spirits","feminine care","cocoa drink mixes","air fresheners candles","seafood counter","white wines","baking supplies decor","diapers wipes","digestion","red wines","cold flu allergy","trail mix snack mix","hair care","bakery desserts","packaged meat","frozen breads doughs","dog food care","protein meal replacements","trash bags liners","fresh pasta","refrigerated pudding desserts","other","beers coolers","plates bowls cups flatware","vitamins supplements","body lotions soap","soap","honeys syrups nectars","cat food care","marinades meat preparation","food storage","prepared soups salads","oral hygiene","breakfast bars pastries","meat counter","canned meat seafood","frozen meat seafood","latino foods","granola","dish detergents","specialty cheeses","canned fruit applesauce","prepared meals","laundry","salad dressing toppings","frozen vegan vegetarian","energy sports drinks","doughs gelatins bake mixes","pickled goods olives","buns rolls","tofu meat alternatives","preserved dips spreads","poultry counter","packaged poultry","cleaning products","grains rice dried goods","hot cereal pancake mixes","fruit vegetable snacks","popcorn jerky","asian foods","frozen pizza","missing","tortillas flat bread","coffee","frozen appetizers sides","spices seasonings","tea","frozen breakfast","pasta sauce","condiments","breakfast bakery","instant foods","cookies cakes","butter","oils vinegars","dry pasta","candy chocolate","canned meals beans","spreads","cream","nuts seeds dried fruit","canned jarred vegetables","paper goods","hot dogs bacon sausage","other creams cheeses","baking ingredients","baby food formula","packaged produce","juice nectars","soup broth bouillon","fresh dips tapenades","fresh herbs","cereal","soft drinks","lunch meat","energy granola bars","frozen meals","crackers","eggs","frozen produce","ice cream ice","refrigerated","bread","soy lactosefree","chips pretzels","milk","water seltzer sparkling water","packaged cheese","yogurt","packaged vegetables fruits","fresh fruits","fresh vegetables"]},"yaxis":{"domain":[0,1],"automargin":true,"title":"n"},"hovermode":"closest","showlegend":false},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":["air fresheners candles","asian foods","baby accessories","baby bath body care","baby food formula","bakery desserts","baking ingredients","baking supplies decor","beauty","beers coolers","body lotions soap","bread","breakfast bakery","breakfast bars pastries","bulk dried fruits vegetables","bulk grains rice dried goods","buns rolls","butter","candy chocolate","canned fruit applesauce","canned jarred vegetables","canned meals beans","canned meat seafood","cat food care","cereal","chips pretzels","cleaning products","cocoa drink mixes","coffee","cold flu allergy","condiments","cookies cakes","crackers","cream","deodorants","diapers wipes","digestion","dish detergents","dog food care","doughs gelatins bake mixes","dry pasta","eggs","energy granola bars","energy sports drinks","eye ear care","facial care","feminine care","first aid","food storage","fresh dips tapenades","fresh fruits","fresh herbs","fresh pasta","fresh vegetables","frozen appetizers sides","frozen breads doughs","frozen breakfast","frozen dessert","frozen juice","frozen meals","frozen meat seafood","frozen pizza","frozen produce","frozen vegan vegetarian","fruit vegetable snacks","grains rice dried goods","granola","hair care","honeys syrups nectars","hot cereal pancake mixes","hot dogs bacon sausage","ice cream ice","ice cream toppings","indian foods","instant foods","juice nectars","kitchen supplies","kosher foods","latino foods","laundry","lunch meat","marinades meat preparation","meat counter","milk","mint gum","missing","more household","muscles joints pain relief","nuts seeds dried fruit","oils vinegars","oral hygiene","other","other creams cheeses","packaged cheese","packaged meat","packaged poultry","packaged produce","packaged seafood","packaged vegetables fruits","paper goods","pasta sauce","pickled goods olives","plates bowls cups flatware","popcorn jerky","poultry counter","prepared meals","prepared soups salads","preserved dips spreads","protein meal replacements","red wines","refrigerated","refrigerated pudding desserts","salad dressing toppings","seafood counter","shave needs","skin care","soap","soft drinks","soup broth bouillon","soy lactosefree","specialty cheeses","specialty wines champagnes","spices seasonings","spirits","spreads","tea","tofu meat alternatives","tortillas flat bread","trail mix snack mix","trash bags liners","vitamins supplements","water seltzer sparkling water","white wines","yogurt"],"y":[1067,7007,306,328,13198,1501,13088,1094,287,1839,2137,23635,9851,3144,725,634,5054,10575,11453,3996,12679,11774,3241,2885,16201,31269,5894,1062,8392,1346,9743,9980,19592,12356,858,1109,1205,3870,1612,4758,11298,19875,17449,4742,548,746,1048,539,2906,15142,150473,16052,1628,150609,8870,1532,9729,922,294,18221,3341,7661,22453,4727,6741,6134,3803,1469,2864,6352,12813,22676,504,719,9917,14350,448,628,3548,4636,16957,2905,3159,32644,962,8251,891,897,12532,10620,3070,1795,12820,41699,1526,5608,13460,909,78493,12694,9736,4882,1959,6917,5208,4133,2936,5188,1612,1243,23228,1729,4719,1084,532,534,2773,16279,15109,26240,3873,461,9279,967,12102,9376,5123,8353,1463,1621,1969,36617,1088,55240],"type":"bar","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="chart-c" class="section level3">
+<h3>Chart C</h3>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
