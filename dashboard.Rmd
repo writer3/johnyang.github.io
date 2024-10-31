@@ -76,7 +76,10 @@ aisle_df |>
 ### Chart C
 
 ```{r}
-
+time_df |> 
+  plot_ly(
+    x = ~department, y = ~days_since_prior_order,
+    type = "box", color = "viridis")
 
 ```
 
